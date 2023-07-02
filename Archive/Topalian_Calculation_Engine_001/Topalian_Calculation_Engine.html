@@ -1,0 +1,387 @@
+<!-- Dedicated to God the Father -->
+
+<!-- All Rights Reserved Christopher Topalian Copyright 2000-2023 -->
+
+<!-- https://github.com/ChristopherTopalian -->
+
+<!-- Topalian_Calculation_Engine.html -->
+
+<!-- Version 001 -->
+
+<html>
+<head>
+<title> Topalian Calculation Engine </title>
+
+<link rel = "stylesheet" href = "css/style001.css">
+
+<script src = "data/calculation_data.js"></script>
+
+<script src = "data/calculation_functions.js"></script>
+
+<script>
+
+function sortByCategoryAndType(whichArray, whichDirection)
+{
+    // ascending
+    if (whichDirection == "up")
+    {
+        whichArray.sort(function(a, b)
+        {
+            return a.category.localeCompare(b.category) || a.type.localeCompare(b.type)
+        });
+    }
+
+    // descending
+    else if (whichDirection == "down")
+    {
+        whichArray.sort(function(b, a)
+        {
+            return a.category.localeCompare(b.category) || a.type.localeCompare(b.type)
+        });
+    }
+}
+
+function createCalculator(whichItem, whichAmount)
+{
+    if (document.getElementById("mainDiv"))
+    {
+        document.getElementById("mainDiv").remove();
+    }
+
+    //----//
+
+    whichAmount = calculationData[whichItem].amountOfTextBoxes;
+
+    //----//
+
+    let mainDiv = document.createElement("div");
+
+    mainDiv.className = "mainDivStyle";
+
+    mainDiv.id = "mainDiv";
+
+    document.body.append(mainDiv);
+
+    //----//
+
+    let titleOfCalculator = document.createElement("div");
+
+    titleOfCalculator.className = "titleOfCalculatorStyle";
+
+    titleOfCalculator.innerHTML = '<center> '+calculationData[whichItem].name+' </center>';
+
+    titleOfCalculator.innerHTML += "<br>";
+    mainDiv.append(titleOfCalculator);
+
+    //----//
+
+    for (let x = 0; x < whichAmount; x++)
+    {
+        let textBox = document.createElement("textarea");
+
+        textBox.id = x;
+
+        if (whichAmount == 1)
+        {
+            textBox.onkeyup = function()
+            {
+                let a = document.getElementById(0).value;
+
+                document.getElementById("textBoxResult").value = eval(' '+calculationData[whichItem].calculationFunction+' ');
+            };
+        }
+
+        if (whichAmount == 2)
+        {
+            textBox.onkeyup = function()
+            {
+                let a = document.getElementById(0).value;
+
+                let b = document.getElementById(1).value;
+
+                document.getElementById("textBoxResult").value = eval(' '+calculationData[whichItem].calculationFunction+' ');
+            };
+        }
+
+        if (whichAmount == 3)
+        {
+            textBox.onkeyup = function()
+            {
+                let a = document.getElementById(0).value;
+
+                let b = document.getElementById(1).value;
+
+                let c = document.getElementById(2).value;
+
+                document.getElementById("textBoxResult").value = eval(' '+calculationData[whichItem].calculationFunction+' ');
+            };
+        }
+
+        mainDiv.append(textBox);
+    }
+
+    //----//
+
+    if (whichAmount == 1)
+    {
+        let titleOfTextBox1 = document.createElement("div");
+                
+        titleOfTextBox1.innerHTML = calculationData[whichItem].textBoxOne;
+        
+        mainDiv.insertBefore(titleOfTextBox1, document.getElementById(0));
+    }
+
+    if (whichAmount == 2)
+    {
+        let titleOfTextBox1 = document.createElement("div");
+
+        titleOfTextBox1.innerHTML = calculationData[whichItem].textBoxOne;
+        
+        mainDiv.insertBefore(titleOfTextBox1, document.getElementById(1));
+
+        //----//
+
+        let titleOfTextBox2 = document.createElement("div");
+                
+        titleOfTextBox2.innerHTML = calculationData[whichItem].textBoxTwo;
+        
+        mainDiv.insertBefore(titleOfTextBox2, document.getElementById(2));
+    }
+
+    if (whichAmount == 3)
+    {
+        let titleOfTextBox1 = document.createElement("div");
+                
+        titleOfTextBox1.innerHTML = calculationData[whichItem].textBoxOne;
+        
+        mainDiv.insertBefore(titleOfTextBox1, document.getElementById(1));
+
+        //----//
+
+        let titleOfTextBox2 = document.createElement("div");
+                
+        titleOfTextBox2.innerHTML = calculationData[whichItem].textBoxTwo;
+        
+        mainDiv.insertBefore(titleOfTextBox2, document.getElementById(2));
+
+        //----//
+
+        let titleOfTextBox3 = document.createElement("div");
+                
+        titleOfTextBox3.innerHTML = calculationData[whichItem].textBoxThree;
+        
+        mainDiv.insertBefore(titleOfTextBox3, document.getElementById(4));
+    }
+
+    //----//
+    
+    let textBoxResult = document.createElement("textarea");
+
+    textBoxResult.className = "textBoxResultStyle";
+
+    textBoxResult.id = "textBoxResult";
+
+    textBoxResult.placeholder = "Result";
+
+    
+    window.onkeyup = function()
+    {
+        if (document.getElementById("textBoxResult").value == "NaN" || document.getElementById("textBoxResult").value == "Infinity")
+        {
+            document.getElementById("textBoxResult").value = "";
+        }
+    }
+
+    mainDiv.append(textBoxResult);
+
+    //----//
+
+    let titleOfTextBoxResult = document.createElement("div");
+
+    titleOfTextBoxResult.className = "titleOfTextBoxResultStyle";
+
+    titleOfTextBoxResult.innerHTML = ' '+calculationData[whichItem].textBoxResult+' ';
+
+    mainDiv.append(titleOfTextBoxResult);
+
+    //----//
+
+    if (document.getElementById("formulaText"))
+    {
+        document.getElementById("formulaText").remove();
+    }
+
+    let formulaText = document.createElement("div");
+
+    formulaText.className = "formulaTextStyle";
+
+    formulaText.id = "formulaText";
+
+    formulaText.innerHTML = calculationData[whichItem].formula;
+
+    document.body.append(formulaText);
+
+    //----//
+
+    let expressionText = document.createElement("div");
+
+    expressionText.className = "expressionTextStyle";
+
+    expressionText.innerHTML = calculationData[whichItem].expression;
+
+    mainDiv.append(expressionText);
+}
+
+//----//
+
+function createMenu()
+{
+    if (document.getElementById("menuMainDiv"))
+    {
+        document.getElementById("menuMainDiv").remove();
+    }
+
+    let menuMainDiv = document.createElement("div");
+
+    menuMainDiv.className = "menuMainDivStyle";
+
+    menuMainDiv.id = "menuMainDiv";
+
+    document.body.append(menuMainDiv);
+
+    //----//
+
+    let minimizeButton = document.createElement("button");
+
+    minimizeButton.className = "menuButtonStyle";
+
+    minimizeButton.style.position = "absolute";
+
+    minimizeButton.style.left = 0 + "px";
+
+    minimizeButton.style.top = -22 + "px";
+
+    minimizeButton.innerHTML = "_";
+
+    minimizeButton.onclick = function()
+    {
+        // minimize the height of the div to show only  _  □
+        document.getElementById("menuSubDiv").style.height = 0 + "px";
+    };
+
+    menuMainDiv.append(minimizeButton);
+
+    //----//
+
+    let maximizeButton = document.createElement("button");
+
+    maximizeButton.className = "menuButtonStyle";
+
+    maximizeButton.style.position = "absolute";
+
+    maximizeButton.style.left = 30 + "px";
+
+    maximizeButton.style.top = -22 + "px";
+
+    maximizeButton.innerHTML = "□";
+
+    maximizeButton.onclick = function()
+    {
+        document.getElementById("menuSubDiv").style.height = 300 + "px";
+    };
+
+    menuMainDiv.append(maximizeButton);
+
+    //----//
+
+    let menuSubDiv = document.createElement("div");
+
+    menuSubDiv.className = "menuSubDivStyle";
+
+    menuSubDiv.id = "menuSubDiv";
+
+    menuSubDiv.innerHTML = "<br>";
+
+    menuMainDiv.append(menuSubDiv);
+
+    //----//
+
+    for (let x = 0; x < calculationData.length; x++)
+    {
+        let functionButton = document.createElement("button");
+
+        functionButton.className = "menuButtonStyle";
+
+        functionButton.style.display = "flex";
+
+        functionButton.style.flexDirection = "row";
+
+        functionButton.innerHTML = calculationData[x].name;
+
+        functionButton.id = calculationData[x].name;
+
+        functionButton.onclick = function()
+        {
+            eval(' '+calculationData[x].calculatorType+' ' + ';');
+
+            console.log(' '+calculationData[x].calculatorType+' ');
+
+            // make the unselected buttons the original border color
+            for (let x = 0; x < calculationData.length; x++)
+            {
+                document.getElementById(calculationData[x].name).style.borderColor = "rgb(100, 100, 100)";
+            }
+
+            // make the selected button appear highlighted with an aqua border color
+            document.getElementById(calculationData[x].name).style.borderColor = "rgb(0, 255, 255)";
+        };
+
+        menuSubDiv.append(functionButton);
+
+        document.getElementById("menuSubDiv").style.height = 0 + "px";
+    }
+}
+
+function findIndexByName(whichArray, whichName)
+{
+    let index = whichArray.findIndex(function(a)
+    {
+        return a.name === whichName
+    });
+
+    return index;
+}
+
+function createTitleOfApplication()
+{
+    let titleOfApplication = document.createElement("div");
+
+    titleOfApplication.className = "titleOfApplicationStyle";
+
+    titleOfApplication.innerHTML = "<a href = 'https://github.com/ChristopherTopalian' target = '_blank'> Topalian Calculation Engine </a>";
+
+    document.body.append(titleOfApplication);
+}
+
+//----//
+
+function whenLoaded()
+{
+    sortByCategoryAndType(calculationData, "up");
+
+    createMenu();
+
+    createCalculator(findIndexByName(calculationData, "Addition"), 2);
+
+    createTitleOfApplication();
+}
+
+</script>
+
+</head>
+
+<body onload = "whenLoaded();">
+
+</body>
+
+</html>
