@@ -3,4 +3,4 @@ Here is a JavaScript app that teaches a functional approach to object oriented p
 
 Video: https://www.youtube.com/watch?v=1H7a45Rqgis
 
-Use Application Here: https://sites.google.com/view/CollegeOfScripting/Topalian_Calculation_Engine
+Use Application Here: https://sites.google.com/view/collegeofscripting/topalian_calculation_engine
