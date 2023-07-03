@@ -5,4 +5,4 @@ Video: https://www.youtube.com/watch?v=1H7a45Rqgis
 
 Use Application Here: https://sites.google.com/view/collegeofscripting/topalian_calculation_engine
 
-![Screenshot](https://twitter.com/CollegeOfScript/status/1675847006902710274/photo/1)
+![Screenshot](https://pbs.twimg.com/media/F0HN9-6WAAEsWzg?format=jpg&name=large)
